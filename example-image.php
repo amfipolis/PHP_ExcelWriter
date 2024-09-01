@@ -2,6 +2,7 @@
 # https://github.com/comsave/PHP_XLSXWriter/tree/master 
 # git clone git@github.com:mk-j/PHP_XLSXWriter.git
 # please add an image.jpg in the same directory with this source code file.
+# php 8.3 compatible
 require_once('xlsxwriter.class.php');
 require_once('xlsxwriterplus.class.php');
 
@@ -16,12 +17,15 @@ $writer->addImage(realpath('./image.jpg'), 1, [
 	'endRowNum' => 20
 ]);
 
-$row = [];
-for($c = 0; $c < 1000; $c++) {
-	$row[] = bin2hex(random_bytes(50));
-}
+$column_count = 200;
+$row_count = 70000;
+$cell_size = 15;
 
-for($r = 0 ;$r < 20000; $r++) {
+for($r = 0 ;$r < $row_count; $r++) {
+    $row = [];
+    for($c = 0; $c < $column_count; $c++) {
+	    $row[] = bin2hex(random_bytes($cell_size));
+    }
 	$writer->writeSheetRow('Sheet1', $row);
 }
 

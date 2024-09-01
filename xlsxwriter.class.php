@@ -223,9 +223,9 @@ class XLSXWriter
         $sheet->file_writer->write('<row collapsed="false" customFormat="false" customHeight="false" hidden="false" ht="12.1" outlineLevel="0" r="' . ($sheet->row_count + 1) . '">');
         $c = 0;
         foreach ($row as $v) {
-            $number_format = $sheet->columns[$c]['number_format'];
-            $number_format_type = $sheet->columns[$c]['number_format_type'];
-            $cell_style_idx = empty($style) ? $sheet->columns[$c]['default_cell_style'] : $this->addCellStyle($number_format, json_encode(isset($style[0]) ? $style[$c] : $style));
+            $number_format = $sheet->columns[$c]['number_format'] ?? '';
+            $number_format_type = $sheet->columns[$c]['number_format_type'] ?? '';
+            $cell_style_idx = empty($style) ? ( $sheet->columns[$c]['default_cell_style'] ?? null) : $this->addCellStyle($number_format, json_encode(isset($style[0]) ? $style[$c] : $style ) );
             $this->writeCell($sheet->file_writer, $sheet->row_count, $c, $v, $number_format_type, $cell_style_idx);
             $c++;
         }
